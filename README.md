@@ -1,6 +1,6 @@
 # monte carlo preflop equity charts
 
-See `main.ipynb`. 
+Welcome to this repository! See `main.ipynb`. 
 
 Equity is calculated for each unique hero vs villain hand-pair by giving the "hero" player each possible pair of hole-cards where the higher card is a spade and the other card is either a spade or a club 
 (equivalent without loss of generality or accuracy to any possible suited or offsuit hand since suits don't matter in Texas Hold Em), and randomly selecting seven cards from a full deck to make up the 
