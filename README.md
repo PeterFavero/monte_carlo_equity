@@ -1,4 +1,4 @@
-# monte carlo preflop equity charts
+# monte_carlo_preflop_equity_charts
 
 Welcome to this repository! See `main.ipynb`. 
 
