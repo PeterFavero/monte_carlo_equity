@@ -1,4 +1,4 @@
-# monte_carlo_preflop_equity_charts
+# monte_carlo_preflop_equity_calculator
 
 Welcome to this repository! See `main.ipynb`. 
 
@@ -8,4 +8,4 @@ Equity is calculated for each unique hero/villain hand-pair by giving the "hero"
 they don't conflict with the seven cards dealt as the board and villain's hole cards and equity is calcuated for a hole-card chart chart by mapping hole-card-pairs with specific suits (ex: AhKd vs JhJc) to 
 hole-card-pairs containing only relative suiting information (ex: AKo vs JJ) in a large dictionary. 
 
-Results are visualized as hand matrices using matplotlib.
+Results are visualized as hand matrices using matplotlib with heatmap styling.
