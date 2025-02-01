@@ -122,15 +122,7 @@ def calculate_preflop_equity_monte_carlo(hero_hands: list[str], num_iterations: 
         
     return output_equity_dict
 
-def plot_preflop_equity_matrix(hand, equity_dict, plot_version: Literal['grid', 'patches']='patches'):
-    if plot_version == 'grid':
-        _plot_preflop_equity_matrix_grid(hand, equity_dict)
-    elif plot_version == 'patches': 
-        _plot_preflop_equity_matrix_patches(hand, equity_dict)
-    else:
-        raise ValueError(f"plot_version: Literal['grid', 'patches'] passed in as '{plot_version}'")
-
-def _plot_preflop_equity_matrix_grid(hand, equity_dict):
+def plot_preflop_equity_matrix(hand, equity_dict):
     
     hand_equity_dict = equity_dict[hand]
 
@@ -201,74 +193,6 @@ def _plot_preflop_equity_matrix_grid(hand, equity_dict):
     
     ax.set_title(f'{hand} Preflop Equity Heatmap (Average equity = {average_equity * 100:.0f}%)')
     plt.show() 
-
-def _plot_preflop_equity_matrix_patches(hand, equity_dict):
-    
-    hand_equity_dict = equity_dict[hand]
-
-    equity_matrix = np.zeros((13, 13))  # 13x13 matrix for hand equities
-    n_matrix = np.zeros((13, 13))  # matrix for number of runouts tested
-
-    for current_hand, values in hand_equity_dict.items():
-        equity = values['equity']
-        n = values['n']
-        rank1, rank2 = current_hand[0], current_hand[1]
-        suited = current_hand.endswith('s')
-
-        r_high, r_low = RANKS.index(rank1), RANKS.index(rank2)
-
-        if suited:
-            equity_matrix[12 - r_high, 12 - r_low] = equity  # suited hands above the diagonal
-            n_matrix[12 - r_high, 12 - r_low] = n
-        elif r_high == r_low:
-            equity_matrix[12 - r_high, 12 - r_low] = equity  # paired hands on the diagonal
-            n_matrix[12 - r_high, 12 - r_low] = n
-        else:
-            equity_matrix[12 - r_low, 12 - r_high] = equity  # Offsuit hands below the diagonal
-            n_matrix[12 - r_low, 12 - r_high] = n
-
-    fig, ax = plt.subplots(figsize=(10, 10))
-    ax.set_xlim(-0.5, 12.5)
-    ax.set_ylim(-0.5, 12.5)
-    ax.set_xticks(np.arange(13))
-    ax.set_yticks(np.arange(13))
-    ax.set_xticklabels(RANKS[::-1])
-    ax.set_yticklabels(RANKS[::-1])
-    plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
-    ax.grid(False)
-
-    # Create rounded boxes for each cell with whitespace between them
-    for i in range(13):
-        for j in range(13):
-            equity_val = equity_matrix[i, j]
-            n_val = int(n_matrix[i, j])
-            if equity_val > 0:
-                color = plt.cm.coolwarm(equity_val)
-                rect = patches.FancyBboxPatch(
-                    (j - 0.45, i - 0.45), 0.9, 0.9,
-                    boxstyle="round,pad=0.05",
-                    linewidth=1, edgecolor='black', facecolor=color
-                )
-                ax.add_patch(rect)
-                
-                if i == j:
-                    current_hand = f'{RANKS[12 - j]}{RANKS[12 - i]}'  # Paired
-                elif i < j:
-                    current_hand = f'{RANKS[12 - i]}{RANKS[12 - j]}s'  # Suited
-                else:
-                    current_hand = f'{RANKS[12 - j]}{RANKS[12 - i]}o'  # Offsuit
-
-                ax.text(j, i, f'{current_hand}\n{equity_val * 100:.0f}%\n({n_val})',
-                        ha='center', va='center', color='black', fontsize=8)
-
-    total_equity = np.sum(equity_matrix * n_matrix)
-    average_equity = total_equity / np.sum(n_matrix)
-
-    ax.set_title(f'{hand} Preflop Equity Heatmap (Avg equity = {average_equity * 100:.0f}%)')
-    cbar = fig.colorbar(plt.cm.ScalarMappable(cmap='coolwarm'), ax=ax, label='Equity')
-    cbar.formatter = FuncFormatter(lambda x, _: f'{x * 100:.0f}%')
-    cbar.update_ticks()
-    plt.show()
 
 # postflop equity
 
