@@ -27,7 +27,7 @@ RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
 SUITS = ['c', 'd', 'h', 's']
 
 # ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-# Methods
+# Equity Methods
 # ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 # formatting/conversions
@@ -293,4 +293,9 @@ def postflop_equity_monte_carlo_parallel(hero_hand: str, board: str, num_iterati
 
     combined_result = combine_equity_dicts(equity_dicts)
     return combined_result
-  
+
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# RFI Quiz Methods
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+# @TODO
