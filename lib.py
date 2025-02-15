@@ -14,6 +14,7 @@ from tqdm.contrib.concurrent import process_map
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
 import matplotlib.patches as patches
+import IPython
 
 # data manipulation
 from collections import defaultdict
@@ -304,7 +305,33 @@ def postflop_equity_monte_carlo_parallel(hero_hand: str, board: str, num_iterati
     return combined_result
 
 # ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# Display Methods
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+def display_str_hand(str_hand):
+
+    if len(str_hand) != 4 or\
+        str_hand[0] not in RANKS or\
+        str_hand[1] not in SUITS or\
+        str_hand[2] not in RANKS or\
+        str_hand[3] not in SUITS:
+            raise ValueError(f"Improper str_hand: {str_hand}")
+    
+    html_code = f"""
+    <div style="display: flex; align-items: center; width: 400px;">
+        <img src="files/card_images/{str_hand[0:2]}.svg" style="width: 50%;" />
+        <img src="files/card_images/{str_hand[2:4]}.svg" style="width: 50%;" />
+    </div>
+    """
+
+    IPython.core.display.display(IPython.core.display.HTML(html_code))
+
+# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 # RFI Quiz Methods
 # ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
-# @TODO
+def run_rfi_quiz(players_ct: Literal[2,4,6,8]):
+
+    #  positions = ['EP1', 'EP2', 'MP1', 'MP2', 'LP1', 'LP2', 'SB', 'BB']
+
+    pass
