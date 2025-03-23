@@ -325,13 +325,3 @@ def display_str_hand(str_hand):
     """
 
     IPython.core.display.display(IPython.core.display.HTML(html_code))
-
-# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-# RFI Quiz Methods
-# ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
-def run_rfi_quiz(players_ct: Literal[2,4,6,8]):
-
-    #  positions = ['EP1', 'EP2', 'MP1', 'MP2', 'LP1', 'LP2', 'SB', 'BB']
-
-    pass
